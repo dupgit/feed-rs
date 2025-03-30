@@ -78,10 +78,10 @@ mod fixes {
 static RFC1123_FORMAT_STR: &str = "%d %b %Y %H:%M:%S %z";
 
 /// Pluggable timestamp parser
-pub(crate) type TimestampParser = dyn Fn(&str) -> Option<DateTime<Utc>> + 'static;
+pub(crate) type TimestampParser = dyn Fn(&str) -> Option<DateTime<Utc>> + 'static + Send + Sync;
 
 /// Pluggable ID (feed or entry) generator
-pub(crate) type IdGenerator = dyn Fn(&[Link], &Option<Text>, Option<&str>) -> String;
+pub(crate) type IdGenerator = dyn Fn(&[Link], &Option<Text>, Option<&str>) -> String + Send + Sync;
 
 /// Handles <content:encoded>
 pub(crate) fn handle_encoded<R: BufRead>(element: Element<R>) -> ParseFeedResult<Option<Text>> {

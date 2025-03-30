@@ -252,7 +252,7 @@ impl Builder {
     /// Registers an ID generator
     pub fn id_generator<F>(mut self, generator: F) -> Self
     where
-        F: Fn(&[model::Link], &Option<model::Text>, Option<&str>) -> String + 'static,
+        F: Fn(&[model::Link], &Option<model::Text>, Option<&str>) -> String + 'static + Send + Sync,
     {
         self.id_generator = Box::new(generator);
         self
@@ -286,7 +286,7 @@ impl Builder {
     /// Registers a custom timestamp parser
     pub fn timestamp_parser<F>(mut self, ts_parser: F) -> Self
     where
-        F: Fn(&str) -> Option<DateTime<Utc>> + 'static,
+        F: Fn(&str) -> Option<DateTime<Utc>> + 'static + Send + Sync,
     {
         self.timestamp_parser = Box::new(ts_parser);
         self
