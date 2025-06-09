@@ -2,7 +2,7 @@ use std::io::BufRead;
 
 use crate::model::{Content, Entry, Feed, FeedType, Image, Link, Person, Text};
 use crate::parser::util::if_some_then;
-use crate::parser::{util, ParseFeedResult, Parser};
+use crate::parser::{ParseFeedResult, Parser, util};
 use crate::xml::{Element, NS};
 
 #[cfg(test)]

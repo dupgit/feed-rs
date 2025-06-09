@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use chrono::{DateTime, Utc};
-use mediatype::{names, MediaTypeBuf};
+use mediatype::{MediaTypeBuf, names};
 use serde::Serialize;
 use url::Url;
 

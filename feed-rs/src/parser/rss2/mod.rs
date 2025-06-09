@@ -1,14 +1,14 @@
 use std::io::BufRead;
 
-use mediatype::{names, MediaTypeBuf};
+use mediatype::{MediaTypeBuf, names};
 
 use crate::model::{Category, Content, Entry, Feed, FeedType, Generator, Image, Link, MediaContent, MediaObject, Person};
 use crate::parser::itunes::{handle_itunes_channel_element, handle_itunes_item_element};
 use crate::parser::mediarss::handle_media_element;
 use crate::parser::util::{if_ok_then_some, if_some_then};
-use crate::parser::{atom, Parser};
-use crate::parser::{mediarss, util};
 use crate::parser::{ParseErrorKind, ParseFeedError, ParseFeedResult};
+use crate::parser::{Parser, atom};
+use crate::parser::{mediarss, util};
 use crate::xml::{Element, NS};
 
 #[cfg(test)]

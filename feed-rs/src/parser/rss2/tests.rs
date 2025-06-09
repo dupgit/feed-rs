@@ -1,7 +1,7 @@
 use std::time::Duration;
 
 use chrono::{TimeZone, Utc};
-use mediatype::{names, MediaType};
+use mediatype::{MediaType, names};
 use url::Url;
 
 use crate::model::*;

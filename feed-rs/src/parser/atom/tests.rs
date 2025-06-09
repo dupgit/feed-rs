@@ -566,14 +566,16 @@ fn test_reddit() {
 fn test_scattered() {
     let test_data = test::fixture_as_string("atom/atom_scattered.xml");
     let actual = parser::parse(test_data.as_bytes()).unwrap().id("");
-    assert!(actual.entries[0]
-        .content
-        .as_ref()
-        .unwrap()
-        .body
-        .as_ref()
-        .unwrap()
-        .contains("there are no strings on me"));
+    assert!(
+        actual.entries[0]
+            .content
+            .as_ref()
+            .unwrap()
+            .body
+            .as_ref()
+            .unwrap()
+            .contains("there are no strings on me")
+    );
 }
 
 // Handle Atom atomOutOfLineContent
