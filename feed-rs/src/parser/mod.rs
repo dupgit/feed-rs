@@ -155,9 +155,15 @@ impl Parser {
             _ => Err(ParseFeedError::ParseError(ParseErrorKind::NoFeedRoot)),
         };
 
-        // Post processing as required
+        // Post-processing as required
         if let Ok(mut feed) = result {
+            // Some feeds do not provide IDs, so we need to generate a consistent identifier
             assign_missing_ids(&self.id_generator, &mut feed, self.base_uri.as_deref());
+
+            // Sanitise content as required
+            if self.sanitize_content {
+                sanitise(&mut feed);
+            }
 
             Ok(feed)
         } else {
@@ -314,6 +320,34 @@ fn assign_missing_ids(id_generator: &IdGenerator, feed: &mut model::Feed, uri: O
     for entry in feed.entries.iter_mut() {
         if entry.id.is_empty() {
             entry.id = id_generator(&entry.links, &entry.title, uri);
+        }
+    }
+}
+
+// Sanitises the various text fields in the feed + entries
+fn sanitise(feed: &mut model::Feed) {
+    if let Some(t) = feed.description.as_mut() {
+        t.sanitize()
+    }
+    if let Some(t) = feed.rights.as_mut() {
+        t.sanitize()
+    }
+    if let Some(t) = feed.title.as_mut() {
+        t.sanitize()
+    }
+
+    for entry in feed.entries.iter_mut() {
+        if let Some(c) = entry.content.as_mut() {
+            c.sanitize()
+        }
+        if let Some(t) = entry.rights.as_mut() {
+            t.sanitize()
+        }
+        if let Some(t) = entry.summary.as_mut() {
+            t.sanitize()
+        }
+        if let Some(t) = entry.title.as_mut() {
+            t.sanitize()
         }
     }
 }
